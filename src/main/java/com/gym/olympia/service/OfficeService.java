@@ -14,19 +14,19 @@ public class OfficeService {
     @Autowired
     OfficeRepository officeRepository;
 
-    public List<Office> listarTodas() {
+    public List<Office> listAll() {
         return officeRepository.findAll();
     }
 
-    public Optional<Office> buscarPorId(Long id) {
+    public Optional<Office> findID(Long id) {
         return officeRepository.findById(id);
     }
 
-    public Office guardar(Office empresa) {
+    public Office save(Office empresa) {
         return officeRepository.save(empresa);
     }
 
-    public Office actualizar(Long id, Office office) {
+    public Office update(Long id, Office office) {
         return officeRepository.findById(id).map(existingOffice -> {
             existingOffice.setUbicacion(office.getUbicacion());
             existingOffice.setTelefono(office.getTelefono());
@@ -36,7 +36,7 @@ public class OfficeService {
         }).orElseThrow(() -> new RuntimeException("Office dont found with id " + id));
     }
 
-    public void eliminar(Long id) {
+    public void delete(Long id) {
         officeRepository.deleteById(id);
     }
 }
