@@ -18,26 +18,26 @@ public class OfficeController {
 
 
     @GetMapping
-    public List<Office> listarTodas() {
-        return officeService.listarTodas();
+    public List<Office> listALl() {
+        return officeService.listAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Office> buscarPorId(@PathVariable Long id) {
-        return officeService.buscarPorId(id)
+    public ResponseEntity<Office> findBy(@PathVariable Long id) {
+        return officeService.findID(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Office crear(@RequestBody Office office) {
-        return officeService.guardar(office);
+    public Office create(@RequestBody Office office) {
+        return officeService.save(office);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Office> actualizar(@PathVariable Long id, @RequestBody Office office) {
+    public ResponseEntity<Office> update(@PathVariable Long id, @RequestBody Office office) {
         try {
-            Office officeActualizada = officeService.actualizar(id, office);
+            Office officeActualizada = officeService.update(id, office);
             return ResponseEntity.ok(officeActualizada);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
@@ -45,8 +45,8 @@ public class OfficeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        officeService.eliminar(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        officeService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
